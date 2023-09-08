@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <style>
+        .upload {
+            border: 2px dashed black;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 10px;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0px 6px 15px black;
+          }
+          input {
+          margin-top: 10px;
+          margin-bottom: 10px; 
+            box-shadow: 0px 6px 15px black;
+            border: 1px solid grey;
+            padding: 8px;
+          }
+</style>
+
+    
+    <form action="{% url 'uploaddata' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <center>
+            <div class="upload py-3 m-1 mt-5">
+              <input type="file" class = "m-1" name="csv_file" id="file1"><br> <br>
+              <button type= "submit" class = "m-1 btn"  style = "border : 3px black dotted;">Upload</button>
+             
+            </div>
+        </center>
+        <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->
+        
+        <!-- NO JS ADDED YET -->
+    </form>
+    <script>
+        // Function to automatically close and fade out alert messages
+        function fadeOutAlerts() {
+            $(".alert").fadeTo(2000, 500).slideUp(500, function() {
+                $(this).slideUp(500);
+            });
+        }
+        
+        // Call the fadeOutAlerts function when the document is ready
+        $(document).ready(function() {
+            fadeOutAlerts();
+        });
+    </script>
+    <script src = "https://100dayscss.com/codepen/js/jquery.min.js"></script>
+    
+
+{% endblock %}
